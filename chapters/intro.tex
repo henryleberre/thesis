@@ -1,0 +1,35 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+Combustion processes power the modern world, from cooking appliances, aircraft,
+and cars, to industrial manufacturing equipment, rockets, and missiles. About 35\%
+of the world's energy is still produced by the exothermic reaction of coal-burning.
+
+Scientists have developed increasingly sophisticated models to describe the mechanics
+of combustion in the presence of fluid flow, where many of its applications lie.
+However, these models most often only correctly describe local behavior, and cannot
+easily be extended to predict how systems of non-trivial size and complexity will
+evolve over time.
+
+In some cases, simplifying assumptions can be made and used alongside
+empirical results to reason about plausible outcomes, though the confidence with
+which these predictions can be made is variable. In other cases, when our predictive
+power is insufficient and the consequences of failure are severe -- as may be the case
+when designing critical infrastructure -- we must often rely on computer simulations
+and experiments, to ground our designs and decisions thereabout in objectivity.
+
+To illustrate, engineers developing the Apollo program's F-1 rocket engine famously
+struggled with combustion instability, a phenomenon that remains a challenge today
+and a focus of study. Small local disturbances in the combustion chamber would
+lead to catastrophic failures. Fortunately, this problem manifested itself during
+testing and mitigation strategies were developed. Undiagnosed, however, difficult
+to predict issues like these could lead to the loss of human life. We are therefore
+motivated to deepen our understanding of combustion processes.
+
+Our goal in this work is to begin the development of a high-performance, open-source,
+and permissibly licensed (MIT) solver capable of simulating reacting flows.
+We hope to help engineers and researchers build novel, efficient, reliable, and
+safe combustion systems without proprietary software they cannot improve or share
+with others. To this end, we are extending the Multi-Component Flow Code (MFC),
+a GPU-accelerated multi-physics compressible fluid flow solver capable of scaling
+to the largest supercomputers in the world today.

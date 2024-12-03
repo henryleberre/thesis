@@ -1,0 +1,305 @@
+@book{poinsot:hal-00270731,
+  TITLE = {{Theoretical and Numerical Combustion}},
+  AUTHOR = {Poinsot, Thierry and Veynante, Denis},
+  URL = {https://hal.science/hal-00270731},
+  PUBLISHER = {{R.T. Edwards Inc.}},
+  PAGES = {522},
+  YEAR = {2005},
+  HAL_ID = {hal-00270731},
+  HAL_VERSION = {v1},
+}
+
+@article{Bryngelson_2021,
+title = {{MFC: A}n open-source high-order multi-component, multi-phase, and multi-scale compressible flow solver},
+author = {Spencer H. Bryngelson and Kevin Schmidmayer and Vedran Coralic and Jomela C. Meng and Kazuki Maeda and Tim Colonius},
+journal = {Computer Physics Communications},
+doi = {10.1016/j.cpc.2020.107396},
+year = {2021},
+pages = {107396},
+}
+
+@misc{radhakrishnan2024method,
+title={Method for portable, scalable, and performant GPU-accelerated simulation of multiphase compressible flow},
+author={Anand Radhakrishnan and Henry Le Berre and Benjamin Wilfong and Jean-Sebastien Spratt and Mauro Rodriguez Jr. au2 and Tim Colonius and Spencer H. Bryngelson},
+year={2024},
+eprint={2305.09163},
+archivePrefix={arXiv},
+primaryClass={physics.flu-dyn}
+}
+
+@article{ALLAIRE2002577,
+title = {A Five-Equation Model for the Simulation of Interfaces between Compressible Fluids},
+journal = {Journal of Computational Physics},
+volume = {181},
+number = {2},
+pages = {577-616},
+year = {2002},
+issn = {0021-9991},
+doi = {https://doi.org/10.1006/jcph.2002.7143},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999102971433},
+author = {Grégoire Allaire and Sébastien Clerc and Samuel Kokh},
+abstract = {A diffuse-interface method is proposed for the simulation of interfaces between compressible fluids with general equations of state, including tabulated laws. The interface is allowed to diffuse on a small number of computational cells and a mixture model is given for this transition region. We write conservation equations for the mass of each fluid and for the total momentum and energy of the mixture and an advection equation for the volume fraction of one of the two fluids. The model needs an additional closure law. We study two different closure laws: isobaric and isothermal. We study the mathematical properties of the resulting models: consistency, hyperbolicity, and existence of a mathematical entropy. We also study the stability of the interfaces with respect to averaging due to the numerical diffusion, a crucial property for the simulation of interface problems by conservative schemes. We show that the isobaric closure is preferable to the isothermal closure with respect to this property. We propose a Roe-type numerical scheme for the simulation of the model and show numerical results for classical test cases.}
+}
+
+@article{CORALIC201495,
+title = {Finite-volume WENO scheme for viscous compressible multicomponent flows},
+journal = {Journal of Computational Physics},
+volume = {274},
+pages = {95-121},
+year = {2014},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2014.06.003},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999114004082},
+author = {Vedran Coralic and Tim Colonius},
+keywords = {WENO, HLLC, Viscous, Shock-capturing, Interface-capturing, Multicomponent flows},
+%abstract = {We develop a shock- and interface-capturing numerical method that is suitable for the simulation of multicomponent flows governed by the compressible Navier–Stokes equations. The numerical method is high-order accurate in smooth regions of the flow, discretely conserves the mass of each component, as well as the total momentum and energy, and is oscillation-free, i.e. it does not introduce spurious oscillations at the locations of shockwaves and/or material interfaces. The method is of Godunov-type and utilizes a fifth-order, finite-volume, weighted essentially non-oscillatory (WENO) scheme for the spatial reconstruction and a Harten–Lax–van Leer contact (HLLC) approximate Riemann solver to upwind the fluxes. A third-order total variation diminishing (TVD) Runge–Kutta (RK) algorithm is employed to march the solution in time. The derivation is generalized to three dimensions and nonuniform Cartesian grids. A two-point, fourth-order, Gaussian quadrature rule is utilized to build the spatial averages of the reconstructed variables inside the cells, as well as at cell boundaries. The algorithm is therefore fourth-order accurate in space and third-order accurate in time in smooth regions of the flow. We corroborate the properties of our numerical method by considering several challenging one-, two- and three-dimensional test cases, the most complex of which is the asymmetric collapse of an air bubble submerged in a cylindrical water cavity that is embedded in 10% gelatin.}
+}
+
+@article{JOHNSEN2006715,
+title = {Implementation of WENO schemes in compressible multicomponent flow problems},
+journal = {Journal of Computational Physics},
+volume = {219},
+number = {2},
+pages = {715-732},
+year = {2006},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2006.04.018},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999106002014},
+author = {Eric Johnsen and Tim Colonius},
+keywords = {Multicomponent flows, Interface capturing, Interface oscillations, Shock–bubble interaction, WENO, HLLC solver},
+abstract = {High-order accurate shock-capturing schemes are capable of properly resolving discontinuities with correct wave speeds in single-fluid Riemann problems. However, when different fluids are present, oscillations develop at interfaces. A class of existing interface-capturing methods that suppress these oscillations is based on first- and second-order accurate reconstructions with Roe solvers. In this paper, we extend these methods to high-order accurate WENO schemes and the HLLC approximate Riemann solver. In particular, we show that a finite volume formulation where the appropriately averaged primitive variables are reconstructed leads to the oscillation-free advection of an isolated interface. Furthermore, numerical experiments show no spurious oscillations for problems where shockwaves and interfaces interact. We solve the Euler equations supplemented by a stiffened equation of state to model flows of gas and liquid components. Our method is high-order accurate, quasi-conservative, shock-capturing and interface-capturing; these properties are additionally verified by considering one-dimensional multicomponent Riemann problems and a two-dimensional shock–bubble interaction.}
+}
+
+@book{toro2009riemann,
+title = "Riemann Solvers and Numerical Methods for Fluid Dynamics",
+author = "E. F. Toro",
+year = "2009",
+publisher = "Springer",
+isbn = "978-3-540-25202-3",
+}
+
+@article{BUTCHER1996247,
+title = {A history of Runge-Kutta methods},
+journal = {Applied Numerical Mathematics},
+volume = {20},
+number = {3},
+pages = {247-260},
+year = {1996},
+issn = {0168-9274},
+doi = {https://doi.org/10.1016/0168-9274(95)00108-5},
+url = {https://www.sciencedirect.com/science/article/pii/0168927495001085},
+author = {J.C. Butcher},
+abstract = {This paper constitutes a centenary survey of Runge-Kutta methods. It reviews some of the early contributions due to Runge, Heun, Kutta and Nyström and leads on to the theory of order of accuracy of Runge-Kutta methods, and includes a discussion of implicit methods, stability analysis and methods of error estimation and dense output.}
+}
+
+@article{10.1063/1.2221349,
+author = {Sánchez, Antonio L. and Vera, Marcos and Liñán, Amable},
+title = "{Exact solutions for transient mixing of two gases of different densities}",
+journal = {Physics of Fluids},
+volume = {18},
+number = {7},
+pages = {078102},
+year = {2006},
+month = {07},
+abstract = "{This Brief Communication presents a number of exact solutions describing the transient mixing of two gases of different molecular weights. Descriptions are given for both the concentration field and the associated induced motion in one-dimensional spherical, cylindrical, and planar configurations, including mixing layers, pockets, coflow jets, and concentrated mass sources.}",
+issn = {1070-6631},
+doi = {10.1063/1.2221349},
+url = {https://doi.org/10.1063/1.2221349},
+eprint = {https://pubs.aip.org/aip/pof/article-pdf/doi/10.1063/1.2221349/12645394/078102\_1\_online.pdf},
+}
+
+@inproceedings{2015-01-0015,
+author={Ratnak, Sok and Kusaka, Jin and Daisho, Yasuhiro},
+title={3D Simulationson Premixed Laminar Flame Propagation of iso-Octane/Air Mixture at Elevated Pressure and Temperature},
+booktitle={18th Asia Pacific Automotive Engineering Conference},
+publisher={SAE International},
+month={mar},
+year={2015},
+doi={https://doi.org/10.4271/2015-01-0015},
+url={https://doi.org/10.4271/2015-01-0015},
+issn={0148-7191},
+abstract={This paper aims to validate chemical kinetic mechanisms of surrogate gasoline three components fuel by calculating one-dimensional laminar burning velocity of iso-octane/air mixture. Next, the application of level-set method on premixed combustion without consideration the effect of turbulence eddies on flame front is also studied in three-dimensional computational fluid dynamic (3D-CFD) simulation. In the 3D CFD simulation, there is an option to calculate laminar burning velocity by using empirical correlations, however it is applicable only for particular initial pressure and temperature in spark ignition engine cases. One-dimensional burning velocities from lean to rich of iso-octane/air mixture are calculated by using CHEMKIN-PRO with detailed chemistry and transport phenomena as a function of different equivalence ratios, different unburnt temperature and pressure ranges. A set of laminar flame table is then combined with 3D-CFD calculations with chemical kinetic mechanisms to track flame front displacements. A high-speed video camera at a frame speed of 2000 frames/sec is used to record the experimental flame positions of iso-octane/air combustion in a cylindrical shape constant volume combustion chamber (CVC). Different fuel-air equivalence ratios ϕ from lean to rich mixtures, ranging from 0.8 to1.4, are investigated at initial temperature of 420 K and 0.3 MPa of ambient pressure. The coupled simulations of one-dimensional adiabatic laminar burning velocity and 3D-CFD well predicts thermodynamics analysis of pressure-time and rate of heat release-time history and visualizations of flame front positions. Temperature and chemical species distributions of flame reaction zone are reported in comparison to that of experiments.}
+}
+
+@inbook{doi:10.2514/6.2009-127,
+author = {Foluso Ladeinde},
+title = {A Critical Review of Scramjet Combustion Simulation (Invited)},
+booktitle = {47th AIAA Aerospace Sciences Meeting including The New Horizons Forum and Aerospace Exposition},
+chapter = {},
+pages = {},
+doi = {10.2514/6.2009-127},
+URL = {https://arc.aiaa.org/doi/abs/10.2514/6.2009-127},
+eprint = {https://arc.aiaa.org/doi/pdf/10.2514/6.2009-127}
+}
+
+@inbook{doi:10.2514/6.1998-3121,
+author = {R. Baurle and T. Mathur and M. Gruber and K. Jackson},
+title = {A numerical and experimental investigation of a scramjet combustor for hypersonic missile applications},
+booktitle = {34th AIAA/ASME/SAE/ASEE Joint Propulsion Conference and Exhibit},
+chapter = {},
+pages = {},
+doi = {10.2514/6.1998-3121},
+URL = {https://arc.aiaa.org/doi/abs/10.2514/6.1998-3121},
+eprint = {https://arc.aiaa.org/doi/pdf/10.2514/6.1998-3121}
+}
+
+@article{MARTINEZFERRER201488,
+title = {A detailed verification procedure for compressible reactive multicomponent Navier–Stokes solvers},
+journal = {Computers \& Fluids},
+volume = {89},
+pages = {88-110},
+year = {2014},
+issn = {0045-7930},
+doi = {https://doi.org/10.1016/j.compfluid.2013.10.014},
+url = {https://www.sciencedirect.com/science/article/pii/S0045793013003976},
+author = {Pedro José {Martínez-Ferrer} and Romain Buttay and Guillaume Lehnasch and Arnaud Mura},
+keywords = {Compressible flows, Combustion, Detonation, High-order schemes, High resolution methods, Direct numerical simulation, Under-expanded jet flames},
+abstract = {The present manuscript reports a numerical verification study based on a series of tests that allows to evaluate the numerical performance of a compressible reactive multicomponent Navier–Stokes solver. The verification procedure is applied to a density-based finite difference numerical scheme suited to compressible reactive flows representative of either combustion in high speed flows or detonation. The numerical algorithm is based on a third-order accurate Total Variation Diminishing (TVD) Runge Kutta time integration scheme. It employs a seventh-order accurate Weighted Essentially Non-Oscillatory (WENO) scheme to discretize the non-linear advective terms while an eighth-order accurate centered finite difference scheme is retained for the molecular viscous and diffusive terms. These molecular contributions are evaluated with the library EGLIB that accounts for detailed multicomponent transport including Soret and Dufour effects. The developed numerical solver thus offers an interesting combination of existing methods suited to the present purpose of studying combustion in high speed flows and/or detonations. The numerical solver is verified by considering a complete procedure that gathers eight elementary verification subsets including, among others, the classical Sod’s shock tube problem, the ignition sequence of a multi-species mixture in a shock tube, the unsteady diffusion of a smoothed concentration profile and a one-dimensional laminar premixed flame. Such verification analyses are seldom reported in the literature but constitute an important part of computational research activities. It is presently completed with the application of the verified finite difference scheme to the numerical simulation of (i) shock (reactive) mixing layer interaction and (ii) combustion ignition downstream of a highly under-expanded jet. The corresponding results shed some light onto the robustness (stability) and performance of the numerical scheme, and also provide some very valuable insights onto the complex physics that prevails in the development of chemical reactions in such situations, which are considered as representative of the discharge or accidental release of high pressure flammable mixtures into the atmosphere.}
+}
+
+@phdthesis{EstebanDissert,
+    title    = {Mixing and sustained combustion in a cavity flameholder for scramjet propulsion},
+    school   = {Graduate College of the University of Illinois Urbana–Champaign},
+    author   = {Esteban Cisneros-Garibay},
+    year      = {2021},
+    url         = {http://hdl.handle.net/2142/113827}
+}
+
+@software{Goodwin_Cantera_An_Object-oriented_2023,
+author = {Goodwin, David G. and Moffat, Harry K. and Schoegl, Ingmar and Speth, Raymond L. and Weber, Bryan W.},
+doi = {10.5281/zenodo.8137090},
+month = aug,
+title = {{Cantera: An Object-oriented Software Toolkit for Chemical Kinetics, Thermodynamics, and Transport Processes}},
+version = {3.0.0},
+year = {2023}
+}
+
+@inproceedings{10.1145/3581576.3581621,
+author = {Elwasif, Wael and Godoy, William and Hagerty, Nick and Harris, J. Austin and Hernandez, Oscar and Joo, Balint and Kent, Paul and Lebrun-Grandie, Damien and Maccarthy, Elijah and Melesse Vergara, Veronica and Messer, Bronson and Miller, Ross and Oral, Sarp and Bastrakov, Sergei and Bussmann, Michael and Debus, Alexander and Steiniger, Klaus and Stephan, Jan and Widera, Rene and Bryngelson, Spencer and Le Berre, Henry and Radhakrishnan, Anand and Young, Jeffrey and Chandrasekaran, Sunita and Ciorba, Florina and Simsek, Osman and Clark, Kate and Spiga, Filippo and Hammond, Jeff and John, Stone and Hardy, David and Keller, Sebastian and Piccinali, Jean-Guillaume and Trott, Christian},
+title = {Application Experiences on a GPU-Accelerated Arm-based HPC Testbed},
+year = {2023},
+isbn = {9781450399890},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3581576.3581621},
+doi = {10.1145/3581576.3581621},
+abstract = {This paper assesses and reports the experience of ten teams working to port, validate, and benchmark several High Performance Computing applications on a novel GPU-accelerated Arm testbed system. The testbed consists of eight NVIDIA Arm HPC Developer Kit systems, each one equipped with a server-class Arm CPU from Ampere Computing and two data center GPUs from NVIDIA Corp. The systems are connected together using InfiniBand interconnect. The selected applications and mini-apps are written using several programming languages and use multiple accelerator-based programming models for GPUs such as CUDA, OpenACC, and OpenMP offloading. Working on application porting requires a robust and easy-to-access programming environment, including a variety of compilers and optimized scientific libraries. The goal of this work is to evaluate platform readiness and assess the effort required from developers to deploy well-established scientific workloads on current and future generation Arm-based GPU-accelerated HPC systems. The reported case studies demonstrate that the current level of maturity and diversity of software and tools is already adequate for large-scale production deployments.},
+booktitle = {Proceedings of the HPC Asia 2023 Workshops},
+pages = {35–49},
+numpages = {15},
+location = {Raffles Blvd, Singapore},
+series = {HPCAsia '23 Workshops}
+}
+
+@article{10.1063/1.1696266,
+    author = {Skinner, Gordon B. and Ringrose, Gordon H.},
+    title = {Ignition Delays of a Hydrogen—Oxygen—Argon Mixture at Relatively Low Temperatures},
+    journal = {The Journal of Chemical Physics},
+    volume = {42},
+    number = {6},
+    pages = {2190-2192},
+    year = {1965},
+    month = {03},
+    abstract = {The ignition of a gas mixture containing 8 mole \%H2 and 2 mole \%O2 in argon was studied in a shock tube at 960°—1080°K. The observed ignition delays were longer than would be expected by extrapolation of data obtained by other workers at higher temperatures. The rapid increase in induction time with decreasing temperature can be accounted for quantitatively by an ignition mechanism involving HO2 radicals.},
+    issn = {0021-9606},
+    doi = {10.1063/1.1696266},
+    url = {https://doi.org/10.1063/1.1696266},
+    eprint = {https://pubs.aip.org/aip/jcp/article-pdf/42/6/2190/18836845/2190\_1\_online.pdf},
+}
+
+@phdthesis{FedkiwPHD,
+    author   = {Fedkiw, Ronald P.},
+    title    = {A survey of chemically reacting, compressible flows},
+    url      = {https://www.proquest.com/dissertations-theses/survey-chemicallyreacting-compressible-flows/docview/304228177/se-2?accountid=11107},
+    school   = {University of California, Los Angeles},
+    year     = {1996},
+}
+
+@misc{cantera,
+    author = "David G. Goodwin and Harry K. Moffat and Ingmar Schoegl and Raymond L.
+              Speth and Bryan W. Weber",
+    title = "Cantera: An Object-oriented Software Toolkit for Chemical
+             Kinetics, Thermodynamics, and Transport Processes",
+    year = 2023,
+    note = "Version 3.0.0",
+    howpublished = "\url{https://www.cantera.org}",
+    doi = {10.5281/zenodo.8137090}
+}
+
+@misc{Pyrometheus2024,
+  year         = 2024,
+  title        = {Pyrometheus: Code Generation for Combustion Mechanisms},
+  author       = {Cisneros, Esteban and Kloeckner, Andreas and {Le Berre}, Henry},
+  journal      = {GitHub repository},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/pyrometheus/pyrometheus}}
+}
+
+@phdthesis{soton380602,
+           month = {September},
+           title = {Parallel adaptive simulation of multi-dimensional detonation structures},
+          school = {Brandenburgische Technische Universitat Cottbus},
+          author = {Ralf Deiterding},
+            year = {2003},
+             url = {https://eprints.soton.ac.uk/380602/}
+}
+
+@article{LEFEBVRE1993206,
+title = {The influence of the heat capacity and diluent on detonation structure},
+journal = {Combustion and Flame},
+volume = {95},
+number = {1},
+pages = {206-218},
+year = {1993},
+issn = {0010-2180},
+doi = {https://doi.org/10.1016/0010-2180(93)90062-8},
+url = {https://www.sciencedirect.com/science/article/pii/0010218093900628},
+author = {M.H. Lefebvre and E.S. Oran and K. Kailasanath and P.J. {Van Tiggelen}},
+abstract = {In this article, we investigate the validity of certain common simplifications in the chemical and thermophysical models used as input to multidimensional detonation simulations, derive a more accurate model, and apply the model in two-dimensional studies of the structure detonations in hydrogenoxygen mixtures diluted with argon and nitrogen. In a series of one-dimensional calculations, we examine the effects of (1) approximation of the temperature dependence of the ratio of specific heat, γ, (2) varying the amount and rate of heat release, and (3) varying the chemical induction time, and we compare all of these approximations with a computation that uses a detailed model of the chemical kinetics and correct thermophysics. From these, we derive a simple form for the temperature dependence of γ and show that this gives good results in comparison to the predictions of the detailed calculation for the detonation velocity and the thickness of the induction zone. In a series of two-dimensional calculations, we investigate the effects of using the more accurate simplified chemical models and varying the type of diluent while maintaining the same dilutions. In agreement with experiments, the mixture of hydrogen, oxygen, and argon mixture shows regular detonation structures and clearly formed detonation cells, whereas the mixture of hydrogen, oxygen, and nitrogen shows highly irregular cellular structure.}
+}
+
+@article{KAILASANATH1985199,
+title = {Determination of detonation cell size and the role of transverse waves in two-dimensional detonations},
+journal = {Combustion and Flame},
+volume = {61},
+number = {3},
+pages = {199-209},
+year = {1985},
+issn = {0010-2180},
+doi = {https://doi.org/10.1016/0010-2180(85)90101-4},
+url = {https://www.sciencedirect.com/science/article/pii/0010218085901014},
+author = {K. Kailasanath and E.S. Oran and J.P. Boris and T.R. Young},
+abstract = {Two-dimensional time-dependent numerical simulations have been performed to study the structure and propagation of self-sustained detonations. The simulations are first used to develop a systematic approach for determining the detonation cell size. This approach involves simulating systems with channel widths both larger and smaller than the transverse cell spacing. The cell size estimated using this approach is compared with experimental data. The simulations also provide insight into some aspects of the mechanism by which a two-dimensional, self-sustained detonation propagates. The evolution of the curvature of the transverse wave appears to be a crucial feature. It is shown that depending on the curvature of the transverse wave at the time of its reflection from either a neighboring transverse wave or a wall, flattened cells or pockets of unreacted gas can be formed.}
+}
+
+@msic{GRI30,
+title = {GRI-Mech 3.0},
+howpublished = {\url{http://www.me.berkeley.edu/gri_mech/}},
+author = {Gregory P. Smith and David M. Golden and Michael Frenklach and Nigel W. Moriarty and Boris Eiteneer and Mikhail Goldenberg and C. Thomas Bowman and Ronald K. Hanson and Soonho Song and William C. Gardiner and Jr. and Vitali V. Lissianski and Zhiwei Qin},
+note = {Accessed: 2024-12-03}
+}
+
+@article{70473541-9e24-3684-8ded-69b842aad3b3,
+ ISSN = {00255718, 10886842},
+ URL = {http://www.jstor.org/stable/2584973},
+ abstract = {In this paper we further explore a class of high order TVD (total variation diminishing) Runge-Kutta time discretization initialized in a paper by Shu and Osher, suitable for solving hyperbolic conservation laws with stable spatial discretizations. We illustrate with numerical examples that non-TVD but linearly stable Runge-Kutta time discretization can generate oscillations even for TVD (total variation diminishing) spatial discretization, verifying the claim that TVD Runge-Kutta methods are important for such applications. We then explore the issue of optimal TVD Runge-Kutta methods for second, third and fourth order, and for low storage Runge-Kutta methods.},
+ author = {Sigal Gottlieb and Chi-Wang Shu},
+ journal = {Mathematics of Computation},
+ number = {221},
+ pages = {73--85},
+ publisher = {American Mathematical Society},
+ title = {Total Variation Diminishing Runge-Kutta Schemes},
+ urldate = {2024-12-03},
+ volume = {67},
+ year = {1998}
+}
+
+@misc{danciu2024kinetixperformanceportablecode,
+      title={KinetiX: A performance portable code generator for chemical kinetics and transport properties}, 
+      author={Bogdan A. Danciu and Christos E. Frouzakis},
+      year={2024},
+      eprint={2411.02640},
+      archivePrefix={arXiv},
+      primaryClass={physics.comp-ph},
+      url={https://arxiv.org/abs/2411.02640}, 
+}

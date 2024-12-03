@@ -1,0 +1,27 @@
+\chapter{Discussion and Future Work}
+
+We set out to extend the Multi-component Flow Code (MFC) with combustion modeling
+capabilities, in an effort to provide a performant and permissively licensed solution
+for combustion simulation in the open-source space.
+We chose MFC for its performance, scalability, cross-compatibility across GPU
+vendors and HPC systems, interface-capturing schemes, and extensibility.
+
+The goal was met with MFC's v4.9.7 release, the first to contain validated 0-1D
+combustion modeling capabilities, as seen in \autoref{ch:validation}. Some fixes
+required for the 2D simulation shown in \autoref{ch:example} are awaiting to be
+merged.
+
+However, several limitations remain, preventing us from simulating some more
+complex scenarios. Three main areas of improvement are identified: the lack of
+chemical diffusion, the need for non-ideal equations of state, and the need for
+varying boundary conditions along the edges of the domain. The first two are
+critical for the fidelity of the simulations, while the third is necessary to
+properly define the associated problem setups, such as having an inflow boundary
+condition between two no-slip walls.
+
+Performance and high memory footprint will remain a concern, even when offloading
+to GPUs, given the number of equations to be solved is an order of magnitude higher
+than in regular MFC simulations. It impacts the size of the simulations we can
+reasonably expect to run. This problem, however, is to be expected for this class
+of solver, and one is we can attempt to further mitigate by optimizing the
+Pyrometheus \cite{Pyrometheus2024} thermochemistry library.

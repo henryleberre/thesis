@@ -1,0 +1,46 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel = {$x$ $\left[\si{\meter}\right]$},
+    ylabel = {$u$ $\left[\frac{\si{\meter}}{\si{\second}}\right]$},
+    width = 3.25in,
+    height = 2in,
+    xmin = 0.0,
+    xmax = 0.1,
+    ymin = -450,
+    ymax = +50,
+    xtick = {0,0.02,0.04,0.06,0.08,0.1},
+    ytick = {-450,-300,-150,0,+150,+300,+450},
+    xticklabel style = {/pgf/number format/fixed},
+    yticklabel style = {/pgf/number format/fixed},
+    minor x tick num = 4,
+    minor y tick num = 4,
+    legend cell align = { right },
+    legend style = { at={(0.975,0.42)}, legend columns = 1 },
+]
+    \addplot [mark=none, loosely dashed] table [x=x, y=u, col sep=comma] {mfc-0.csv};   % 0
+    \addplot [mark=none, solid]          table [x=x, y=u, col sep=comma] {mfc-200.csv}; % ?
+
+    \addplot [
+        mark=*,
+        mark size=2pt,
+        only marks,
+        mark options={solid, fill opacity=0, draw=black}
+    ] table [x=x, y=u, col sep=comma] {fedkiw-u-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=0.2pt,
+        only marks,
+        mark options={solid, fill=black, draw=black}
+    ] table [x=x, y=u, col sep=comma] {fedkiw-u-200.csv};
+
+    \legend{$\hphantom{4}0$ \si{\micro\second}, $40$ \si{\micro\second}, Fedkiw}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

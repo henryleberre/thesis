@@ -1,0 +1,39 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xmode = log,
+    ymode = log,
+    xlabel = {Time [s]},
+    ylabel = {Concentration $\left[\frac{\si{\mol}}{\si{\liter}}\right]$},
+    width = 3.25in,
+    height = 2in,
+    xmin = 1e-7,
+    xmax = 1e-4,
+    ymin = 1e-14,
+    ymax = 1e-2,
+    ytick = {1e-14,1e-10,1e-6,1e-4,1e-2},
+    legend style = { at={(0.507,0.96)}, legend columns = 2, /tikz/every even column/.append style={column sep=0.5cm} },
+]
+    \addplot [RYB1, mark=none] table [x=t, y={[H]},   col sep=comma] {mfc.csv};
+    \addplot [RYB2, mark=none] table [x=t, y={[O]},   col sep=comma] {mfc.csv};
+    \addplot [RYB3, mark=none] table [x=t, y={[OH]},  col sep=comma] {mfc.csv};
+    \addplot [RYB4, mark=none] table [x=t, y={[HO2]}, col sep=comma] {mfc.csv};
+
+    \draw [RYB5, solid] (axis cs:0.052e-3,1e-14) -- (axis cs:0.052e-3,1e-2)
+        node [pos=0.1, anchor=east] {Skinner et al. (1965)};
+    \draw [dashed] (axis cs:5.13e-05,1e-14) -- (axis cs:5.13e-05,1e-2)
+        node [pos=0.2, anchor=east] {CheMFC};
+    \draw [dashed] (axis cs:5.13e-05,1e-14) -- (axis cs:5.13e-05,1e-2)
+        node [pos=0.3, anchor=east] {Cantera};
+
+    \draw [dashed] (axis cs:1e-7,1e-6) -- (axis cs:1e-4,1e-6);
+
+    \legend{\ce{H}, \ce{O}, \ce{OH}, \ce{HO2}}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

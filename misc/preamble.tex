@@ -1,0 +1,50 @@
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{listings}
+\usepackage{etoolbox}
+\usepackage{makecell}
+\usepackage[T1]{fontenc}
+\usepackage[version=3]{mhchem}
+\usepackage{import}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{framed}
+\usepackage{bigints}
+\usepackage{filecontents}
+\usepackage{caption}
+\usepackage[%
+  binary-units=true,
+  prefixes-as-symbols=false,
+]{siunitx}
+
+\definecolor{lightblue}{rgb}{0.63, 0.74, 0.78}
+\definecolor{seagreen}{rgb}{0.18, 0.42, 0.41}
+\definecolor{orange}{rgb}{0.85, 0.55, 0.13}
+\definecolor{silver}{rgb}{0.69, 0.67, 0.66}
+\definecolor{rust}{rgb}{0.72, 0.26, 0.06}
+\definecolor{purp}{RGB}{68, 14, 156}
+
+\colorlet{lightrust}{rust!50!white}
+\colorlet{lightorange}{orange!25!white}
+\colorlet{lightlightblue}{lightblue}
+\colorlet{lightsilver}{silver!30!white}
+\colorlet{darkorange}{orange!75!black}
+\colorlet{darksilver}{silver!65!black}
+\colorlet{darklightblue}{lightblue!65!black}
+\colorlet{darkrust}{rust!85!black}
+\colorlet{darkseagreen}{seagreen!85!black}
+
+\newcommand{\henry}[1]{\textcolor{green}{[[Henry says: #1]]}}
+\newcommand{\spencer}[1]{\textcolor{red}{[[Spencer says: #1]]}}
+
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.6\hsize}X}
+\newcolumntype{k}{>{\hsize=.15\hsize}X}
+
+\newenvironment{FigureInMulticol}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}

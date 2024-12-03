@@ -1,0 +1,60 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel = {Position [m]},
+    ylabel = {$\gamma$},
+    width = 3.25in,
+    height = 2in,
+    xmin = 0,
+    xmax = 0.1,
+    ymin = 1.51,
+    ymax = 1.56,
+    xtick = {0,0.02,0.04,0.06,0.08,0.1},
+    ytick = {1.51,1.52,1.53,1.54,1.55,1.56},
+    xticklabel style = {/pgf/number format/fixed},
+    yticklabel style = {/pgf/number format/fixed},
+    minor x tick num = 4,
+    minor y tick num = 4,
+    legend cell align = { left },
+    legend style = { draw=none, fill=none, at={(0.725,0.51)}, legend columns = 1 },
+]
+    \addplot [mark=none, loosely dashed] table [x=x, y=gamma, col sep=comma] {gamma-0.csv};
+    \addplot [mark=none, solid] table [x=x, y=gamma, col sep=comma] {gamma-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=2pt,
+        only marks,
+        mark options={solid, fill opacity=0, draw=black}
+    ] table [x=x, y=gamma, col sep=comma] {fedkiw-gamma-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=2pt,
+        only marks,
+        mark options={solid, fill opacity=0, draw=red}
+    ] table [x=x, y=gamma, col sep=comma] {martinez-gamma-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=0.2pt,
+        only marks,
+        mark options={solid, fill=black, draw=black}
+    ] table [x=x, y=gamma, col sep=comma] {fedkiw-gamma-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=0.2pt,
+        only marks,
+        mark options={solid, fill=red, draw=red}
+    ] table [x=x, y=gamma, col sep=comma] {martinez-gamma-200.csv};
+
+    \legend{$\hphantom{4}0$ \si{\micro\second}, $40$ \si{\micro\second}, Fedkiw (1996), Martinez-Ferrer et al. (2013)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

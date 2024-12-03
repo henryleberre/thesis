@@ -1,0 +1,38 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel = {Position [m]},
+    ylabel = {Mass Fractions},
+    width = 3.25in,
+    height = 2in,
+    xmin = 0,
+    xmax = 0.12,
+    ymin = 0,
+    ymax = 0.12,
+    xtick = {0e-2,2e-2,4e-2,6e-2,8e-2,10e-2,12e-2},
+    xticklabel style = {/pgf/number format/fixed},
+    yticklabel style = {/pgf/number format/fixed},
+    minor x tick num = 4,
+    minor y tick num = 4,
+    legend cell align = { left },
+    legend style = { at={(0.3,0.6)}, legend columns = 1 },
+]
+    \addplot [RYB1, mark=none, solid] table [x=x, y=Y_H2,  col sep=comma] {mfc-18681.csv}; % 230
+    \addplot [RYB2, mark=none, solid] table [x=x, y=Y_O2,  col sep=comma] {mfc-18681.csv}; % 230
+    \addplot [RYB3, mark=none, solid] table [x=x, y=Y_H2O, col sep=comma] {mfc-18681.csv}; % 230
+
+    \addlegendimage{RYB1, mark=none}
+    \addlegendentry{\ce{H2}}
+    \addlegendimage{RYB2, mark=none}
+    \addlegendentry{\ce{O2}}
+    \addlegendimage{RYB3, mark=none}
+    \addlegendentry{\ce{H2O}}
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

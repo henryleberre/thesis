@@ -1,0 +1,47 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel = {Position $\left[\si{\meter}\right]$},
+    ylabel = {Temperature $\left[\si{\kelvin}\right]$},
+    width = 3.25in,
+    height = 2in,
+    xmin = 0.0,
+    xmax = 0.1,
+    ymin = 200,
+    ymax = 1300,
+    xtick = {0,0.02,0.04,0.06,0.08,0.1},
+    ytick = {200,400,600,800,1000,1200},
+    xticklabel style = {/pgf/number format/fixed},
+    yticklabel style = {/pgf/number format/fixed},
+    minor x tick num = 4,
+    minor y tick num = 4,
+    legend cell align = { left },
+    %legend style = { at={(0.31,0.95)}, legend columns = 1 },
+    legend style = { at={(0.975,0.42)}, legend columns = 1 },
+]
+    \addplot [mark=none, loosely dashed] table [x=x, y=T, col sep=comma] {mfc-0.csv};   % 0
+    \addplot [mark=none, solid]          table [x=x, y=T, col sep=comma] {mfc-200.csv}; % ?
+
+    \addplot [
+        mark=*,
+        mark size=2pt,
+        only marks,
+        mark options={solid, fill opacity=0, draw=black}
+    ] table [x=x, y=T, col sep=comma] {fedkiw-T-200.csv};
+
+    \addplot [
+        mark=*,
+        mark size=0.2pt,
+        only marks,
+        mark options={solid, fill=black, draw=black}
+    ] table [x=x, y=T, col sep=comma] {fedkiw-T-200.csv};
+
+    \legend{$\hphantom{4}0$ \si{\micro\second}, $40$ \si{\micro\second}, Fedkiw (1996)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

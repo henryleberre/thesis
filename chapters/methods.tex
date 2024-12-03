@@ -1,0 +1,75 @@
+\chapter{Methods}
+\label{ch:methods}
+
+MFC with chemistry (herein CheMFC), is based on a 1-fluid formulation of the 5-equation
+model from Allaire et al. \cite{ALLAIRE2002577}, augmented with $N_{sp}$ species
+transport equations from Poinsot and Veynante \cite{poinsot:hal-00270731}.
+%
+\begin{align*}
+    \frac{\partial\left(\rho Y_k\right)}{\partial t} & = \dot\omega_k - \nabla \cdot (\rho Y_k \Vec{u}) - \nabla \cdot (\rho Y_k \Vec{V_k})
+\end{align*}
+
+We naturally take $Y_k$ as our primitive variable and $\rho Y_k$ as our conservative variable
+for species $k \in \left\{1,\dots,N_{sp}\right\}$. Each $Y_k$ is WENO-reconstructed
+and the associated advection flux computed using either the HLL or HLLC Riemann solver.
+Therein, $\gamma$, the ratio of specific heat capacities, is computed in one of two ways:
+%
+\begin{align*}
+    \gamma &= \frac{c_p}{c_v} = \frac{\sum\limits_{k=1}^{N_{sp}} Y_k c_{p,k}}{\sum\limits_{k=1}^{N_{sp}} Y_k c_{v,k}} & \text{or} & & \gamma &= 1 + \left(\sum\limits_{k=1}^{N_{sp}} \frac{X_k}{\gamma_k - 1} \right)^{-1}
+\end{align*}
+%
+the latter formulation being taken from Deiterding \cite{soton380602}.
+
+To compute temperature ($T$) from the mixture density ($\rho$) and our conservative energy
+variable ($\rho E$), we must perform an iterative solve using the Newton-Raphson method,
+as to satisfy
+\begin{align}\label{eq:energy_newton_pyro}
+    e - \sum\limits_{k=1}^{N_{sp}} e_k\left(T\right) Y_k = 0
+\end{align}
+where, $e$, the internal mixture energy, can be defined as $e = E - \frac{1}{2} \norm{u}^2$.
+Pressure is simplistically defined using the ideal gas law, $p = \rho R T$
+where $R$ is the ideal gas constant.
+
+We extended Pyrometheus \cite{Pyrometheus2024} to provide a Fortran interface
+for computing the reaction source term ($\dot\omega_k$) and the specific heat capacities
+at constant volume and pressure, as well as performing the
+Newton-Raphson solve for temperature described in \autoref{eq:energy_newton_pyro},
+while supporting OpenACC offload. MFC's build system was amended to allow for
+mechanism-specific code-generation and compilation to occur transparently to the user.
+
+To conclude, our conservative and primitive variable vectors are defined as:
+%
+\begin{align*}
+    \Vec{Q}_{\text{cons}} & = \left[\begin{array}{c}
+        \alpha\rho \\
+        \rho u_i \\
+        \vdots \\
+        \rho u_{N_{dim}} \\
+        \rho E \\
+        \alpha \\
+        \rho Y_1 \\
+        \vdots \\
+        \rho Y_{N_{sp}} \\
+        T
+    \end{array}\right]
+    &
+    \Vec{Q}_{\text{prim}} & = \left[\begin{array}{c}
+        \alpha\rho \\
+        u_i \\
+        \vdots \\
+        u_{N_{dim}} \\
+        p \\
+        \alpha \\
+        Y_1 \\
+        \vdots \\
+        Y_{N_{sp}} \\
+        T
+    \end{array}\right]
+\end{align*}
+%
+where the fluid void fraction ($\alpha$) and temperature ($T$) variables,
+and their respective equations, could be done without, but kept for simplicity,
+given $\alpha$ is a remnant from the 5-equation model (given our 1-fluid formulation)
+and temperature, derived from energy, is cached (and not recomputed) every time it is used.
+The memory and computational overhead is considered negligible since the species transport
+equations are expected to dominate the number of equations in the system.

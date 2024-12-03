@@ -1,0 +1,187 @@
+\chapter{Literature Review}
+\label{ch:lit}
+
+In this work, we will continue to develop the Multi-Component Flow Code (MFC) \cite{Bryngelson_2021},
+the flow solver mentioned in the introduction, born at the Computational and Data-Driven
+Fluid Dynamics research group at the California Institute of Technology. MFC is as a
+software package for the simulation of multi-component
+and multi-phase flows, targeted at solving problems in the defense, aerospace, and
+healthcare sectors. For many problems of interest, such as the modeling
+of bubble cavitation in the wake of a submarine's propeller, computer simulations
+help to overcome the burdens of physical experimentation and theoretical analysis, while
+allowing for more flexibility in the design and validation of new technologies.
+
+Fully resolved simulations require significant computational resources, surpassing
+the capabilities of a single computer. High-performance computing (HPC) systems
+provide a network of computers that can be used simultaneously to solve a single
+problem. To this end, MFC's Fortran codebase leverages the Message Passing Interface (MPI) to
+distribute work among multiple computer nodes, assigning portions of the computational
+domain to individual processors in the pre-processing step.
+
+Communication between processors
+is required to compute fluxes across the faces of cells residing on the boundary
+of processor domains, as they lack information about their neighbors.
+MFC makes use of "halo" regions, thin layers of cells surrounding the
+interior domain of each processor, whose purpose is to store the values of the neighboring
+processors' boundary cells, for use in the computation of fluxes. These regions
+are updated every stage of our Runge--Kutta time integration scheme. At the very edge
+of the computational domain, non-periodic user-specified boundary conditions are
+enforced by prescribing the values of the halo cells thereon.
+
+In a subsequent
+research effort, we introduced hardware acceleration through the use of General-Purpose
+Graphics Processing Units (GPGPUs) \cite{radhakrishnan2024method}. At the time, on the nation's
+most most powerful supercomputer, Oak Ridge Leadership Computing Facility's (OLCF) Summit,
+a $40$-times node-wise speedup was achieved when comparing GPU-offload to traditional
+CPU computation, greatly reducing the cost of running large simulations.
+Offloading was done through the OpenACC programming model, using meta-programming
+and case-specific optimizations to achieve maximum performance, among other techniques.
+
+MFC employs the 4- and 5-equation models from Preston et al. \cite{ALLAIRE2002577} to model the physics
+of flow. These are systems of partial differential equations of the form:
+%
+\begin{equation}
+    \frac{\partial q}{\partial t} + \nabla \cdot F(q) + h(q)\nabla\cdot u = s(q)
+\end{equation}
+
+\noindent where $q$ is the state vector of conserved quantities, $F$ the flux tensor,
+$u$ the velocity field, and $s(q)$ the associated source term \cite{Bryngelson_2021}.
+For the purposes of this review, we will not detail the $h(q)\nabla\cdot u$ term.
+Each component of $q$ represents a conserved quantity at any given grid location,
+such as $\rho E$ (density times energy). Fluxes designated by $F(q)$ 
+represent how each component in the state vector is expected to be transported
+to and from the current location (to and from other cells). By definition, a flux
+represents the net transport of a quantity through a face. MFC is a finite-volume
+code and represents the domain as a collection of cells with non-zero volume \cite{Bryngelson_2021}.
+Naturally, adjacent cells share faces. Preston et al. \cite{ALLAIRE2002577} provide
+expressions for $q$, $F(q)$ ,$h(q)$, and $s(q)$, capable of modeling the flows MFC
+is interested in simulating.
+
+To compute fluxes across cell faces, MFC uses (Monotonicity Preserving) WENO
+(Weighted Essentially Non-Oscillatory) schemes to reconstruct values at cell
+faces from their cell-centered counterparts in a way that does not introduce
+spurious oscillations into the simulation \cite{CORALIC201495,JOHNSEN2006715}.
+Indeed, the simulation stores and manipulates state vectors at the cell centers,
+not their faces, whose values are necessary to calculate derivatives using finite
+differences and other numerical methods. WENO uses the cell-centered values in the
+neighborhood of a cell to derive its face-centered values through weighted
+interpolation, while attempting to minimize numerical artifacts that can result
+in the formation of spurious oscillations. WENO schemes are dissipative, meaning
+they can dampen oscillations and smear discontinuities.
+
+From these WENO-reconstructed face-centered values, one could naively compute
+fluxes across cell faces using $F(q)$. However, MFC is interested in simulating
+flows that involve shocks, often in the form of propagating waves. They give rise
+to sharp discontinuities in the flow field, where across two cell faces, the
+value of a state variable can abruptly jump from one value to another. For example,
+if two fluids are inserted, each on one side of the domain with their own density,
+an interface forms between the two components, where density jumps from one value
+to another without a smooth transition. Differentiating a state variable at the
+discontinuity can lead to unphysical solutions, as the field can no longer be
+modeled as continuous. This is due to the discreteness of the grid imposed by
+computer simulation. Approximate Riemann solvers (solving the Riemann Problem)
+such as HLLC (Harten-Lax-van Leer-Contact) are used to determine the flux through
+a discontinuity \cite{toro2009riemann}. They use information about the shock waves
+moving through the domain to determine fluxes accurately.
+
+The methods presented above let us determine $\frac{\partial q}{\partial t}$ at
+a particular time-step, the (partial) time derivative of the conservative state
+vector. These are called "right-hand-side (RHS) evaluations". To advance the
+simulation through time, we must integrate it -- with respect to time. MFC uses a popular class of
+iterative schemes known as explicit Runge--Kutta (RK) methods \cite{BUTCHER1996247}.
+They evaluate and compose $\frac{\partial q}{\partial t}$ multiple times per
+time-step to provide a guess for the $q$ state vector at the next time-step.
+Their popularity lies in their great accuracy at a low computational cost
+(measured in the number of right-hand-side evaluations). There are multiple versions
+of this method. For example, RK2 can be written as
+
+$$
+\begin{cases}
+    K_1 &= h f\left(t_n, q_n\right) \\
+    K_2 &= h f\left(t_n + \frac{h}{2}, q_n + \frac{K_1}{2}\right) \\
+    q_{n+1} &= q_n + K_2 \\
+    t_{n+1} &= t_n + h
+\end{cases}
+$$
+
+\noindent for a given (time) step size $h \ll 1$ if we express our problem as
+$\frac{\partial q}{\partial t}=f(t,q)$ \cite{BUTCHER1996247}. MFC simulations
+often make use of another variation, a third-order total variation diminishing (TVD)
+Runge--Kutta method from Gottlieb and Shu \cite{70473541-9e24-3684-8ded-69b842aad3b3}
+that provides more guarantees about the stability of the integration scheme.
+
+To simulate chemistry, more equations and state variables are needed. Poinsot
+and Veynante provide a framework for simulating chemical advection, diffusion,
+and chemical kinetics, among other phenomena \cite{poinsot:hal-00270731}. Most notably,
+they provide the following conservative transport equation for species $k$:
+\begin{equation}
+    \frac{\partial\left(\rho Y_k\right)}{\partial t} = \dot\omega_k - \nabla \cdot (\rho Y_k \Vec{u}) - \nabla \cdot (\rho Y_k \Vec{V_k})
+\end{equation}
+
+\noindent where $Y_k$ is the mass fraction of the $k$-th species, $\rho$ is the density, $u$ is the velocity field,
+$\dot\omega_k$ is the reaction source term for species $k$, and $\Vec{V_k}$ is the correction velocity for species $k$
+(which accounts for chemical diffusion). As is evident from the above equation, the authors recommend the use $q_k=\rho Y_k$
+as the conservative variable associated with species $k$ and, $Y_k$ (or $X_k$, the molar fraction) as the associated
+primitive variable.
+
+Martínez-Ferrer et al. \cite{MARTINEZFERRER201488} present detailed
+validation procedures for combustion CFD codes, some of which we will follow in
+\autoref{ch:validation}. These mostly stress advection fluxes, the reaction
+source term, shock-capturing, and our temperature and pressure calculations.
+The two one-dimensional shock tube problems they present, \textit{Multicomponent inert shock tube}
+and \textit{Multi-species reactive shock tube} are already present in MFC's source package
+but without the chemistry.
+
+To validate the chemical diffusion term, we can either begin with the full formulation
+shown above, or consider a simpler case such as binary diffusion, where only two
+species are present and susceptible to diffuse into each other. With these simplifying
+assumptions, Poinsot and Veynante \cite{poinsot:hal-00270731} show that the
+transport equation can be rewritten as
+%
+$$
+\frac{\partial\left( \rho Y_k\right)}{\partial t} = \dot\omega_k - \nabla \cdot \left( \rho Y_k \right) - \nabla \cdot \left( \rho D \nabla Y_k \right)
+$$
+%
+\noindent where $D$ is a constant specific to the two species mixing, dropping the need to
+solve a system for diffusion velocities.
+
+This can be validated using results from Antonio~L.~Sánchez~et~al., who study
+one-dimensional binary mixing problems \cite{10.1063/1.2221349}. Their work lets
+us validate our implementation of the above differential equation with the
+following problem definition and time-dependent exact analytical solution thereof
+%
+$$
+\begin{cases}
+    \rho\left(r,t\right) &= \rho_b + \frac{\rho_a-\rho_b}{2} \left[1-\text{erf}\left(\frac{r}{2\sqrt{Dt}}\right)\right] \\
+    Y_1(r,t) &= \frac{\rho_a\left[\rho_b-\rho(r,t)\right]}{\rho(r,t)\left[\rho_b-\rho_a\right]} \\
+    Y_2(r,t) &= 1 - Y_1(r,t)
+\end{cases}
+$$
+
+\noindent where $t$ is the time, $\rho_a$ and $\rho_b$ are, respectively, the
+densities of the two mixing gases, $\rho\left(r,t\right)$ and $Y_k(r,t)$ are,
+respectively, the density and mass fraction of the $k$-th species at time $t$
+and position $r$ along the 1D domain. The mixing layer has a thickness of $2\sqrt{Dt}$
+(in domain space).
+
+Similarly, multi-species diffusion can first be validated using the above binary
+diffusion case, before moving to the more complex case described by Martínez-Ferrer et al. \cite{MARTINEZFERRER201488}.
+
+Multiple software packages exist to assist in computing correction velocities
+and the reaction source term such as Cantera \cite{cantera}, Pyrometheus \cite{Pyrometheus2024},
+and KinetiX \cite{danciu2024kinetixperformanceportablecode}. Pyrometheus and
+KinetiX are both designed to generate optimized thermochemistry routines from
+Cantera mechanisms, aiming to maximize performance by unrolling loops, optimizing
+the computation graph, and hard-coding
+mechanism constants like NASA polynomial coefficients, so as to reduce
+memory accesses and eliminate redundant computations. Neither provide Fortran bindings.
+
+One application of simulating reacting flows is the design and validation of scramjets.
+They are engines whose combustion happens at supersonic speeds (Mach $>$ 1)
+\cite{doi:10.2514/6.2009-127}. F. Ladeinde brings attention to spray modeling,
+encouraging more research to be done in the area, and highlights the prevalence of
+flamelet methods as a tool to simplify combustion simulation \cite{doi:10.2514/6.2009-127}.
+This method is also presented in Poinsot and Veynante's book \cite{poinsot:hal-00270731}
+as a simplification that models each element of the frame-front (the part of the flame
+that is reacting) as a laminar flame. These elements are called flamelets and can
+provide significant performance improvements \cite{poinsot:hal-00270731,doi:10.2514/6.2009-127}.

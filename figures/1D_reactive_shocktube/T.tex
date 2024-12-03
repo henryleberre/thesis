@@ -1,0 +1,47 @@
+\input{../../misc/tikz_preamble}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel = {Position    [m]},
+    ylabel = {Temperature [K]},
+    width = 3.25in,
+    height = 2in,
+    xmin = 0,
+    xmax = 0.12,
+    ymin = 300,
+    ymax = 3000,
+    xtick = {0e-2,2e-2,4e-2,6e-2,8e-2,10e-2,12e-2},
+    ytick = {400,800,1200,1600,2000,2400,2800},
+    xticklabel style = {/pgf/number format/fixed},
+    yticklabel style = {/pgf/number format/fixed},
+    minor x tick num = 4,
+    minor y tick num = 4,
+    legend cell align = { left },
+    legend style = { draw=none, fill=none, at={(0.72,0.5)}, legend columns = 1 },
+]
+    \addplot [RYB1, mark=none, solid] table [x=x, y=T, col sep=comma] {mfc-13807.csv}; % 170
+    \addplot [RYB2, mark=none, solid] table [x=x, y=T, col sep=comma] {mfc-15432.csv}; % 190
+    \addplot [RYB4, mark=none, solid] table [x=x, y=T, col sep=comma] {mfc-18681.csv}; % 230
+
+    \addplot [
+        mark=*,
+        mark size=2pt,
+        only marks,
+        mark options={solid, fill opacity=0, draw=black}
+    ] table [x=x, y=T, col sep=comma] {ref-230-T.csv};
+
+    \addplot [
+        mark=*,
+        mark size=0.2pt,
+        only marks,
+        mark options={solid, fill=black, draw=black}
+    ] table [x=x, y=T, col sep=comma] {ref-230-T.csv};
+
+    \legend{170 \SIUnitSymbolMicro s, 190 \SIUnitSymbolMicro s, 230 \SIUnitSymbolMicro s, Martinez-Ferrer et al. (2013)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

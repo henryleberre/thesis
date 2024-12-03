@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.fls": true,
+        "**/*.log": true,
+        "**/*.synctex.gz": true,
+        "**/*.run.xml": true,
+        "**/*.blg": true,
+        "**/*.bbl*": true,
+        "**/*.bcf*": true,
+        "**/*.out": true,
+        "**/*.toc": true,
+        "**/*.dvi": true,
+        "**/*.out.ps": true
+    },
+    "latex-workshop.view.pdf.invert": 1
+}
