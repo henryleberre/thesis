@@ -9,7 +9,7 @@ $ make -j $(nproc)
 ```
 This requires that `latexmk` and various LaTeX packages be installed.
 
-The compiled PDF is available [here](thesis.pdf).
+The compiled PDF is available [here](thesis.pdf) and the official release [here](https://hdl.handle.net/1853/78203).
 
 ### License
 
